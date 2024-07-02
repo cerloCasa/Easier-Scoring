@@ -14,3 +14,5 @@ if context.individual and context.cardarea == G.play then
   xChips(3,context.other_card) -- each scoring card does x3 Chips
 end
 ```
+## Warning
+This mod modifies the behaviour of `function card_eval_status_text()`, so it might collide with other mods that do the same.
