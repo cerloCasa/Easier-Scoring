@@ -213,3 +213,10 @@ function xMult(amt,card)
     )
     EzSc_card_eval_status_text(card, 'x_mult', amt, percent)
 end
+
+SMODS.Atlas { -- modicon
+    key = 'modicon',
+    px = 34,
+    py = 34,
+    path = 'modicon.png',
+}
