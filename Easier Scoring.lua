@@ -4,13 +4,14 @@
 --- MOD_AUTHOR: [Cerlo]
 --- MOD_DESCRIPTION: This mod adds functions for increasing Mult and Chips without putting them in the return brackets
 --- BADGE_COLOR: 4285F4
+--- PRIORITY: 10000
 --- PREFIX: EzSc
 --- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.1
+--- VERSION: 1.2
 
 -- HOW TO USE
 -- if context.joker_main then
---     xChips(2,card) -- does x2 Chips
+--     xChips(2,context.blueprint_card or card) -- does x2 Chips
 -- end
 -- if context.individual and context.cardarea == G.play then
 --     xChips(3,context.other_card) -- each scoring card does x3 Chips
@@ -83,14 +84,14 @@ local function EzSc_card_eval_status_text(card, eval_type, amt, percent, dir, ex
     elseif eval_type == 'a_chips' then
         sound = 'chips1'
         amt = amt
-        text = "+" .. amt .. " Chips"
+        text = "+" .. amt
         colour = G.C.CHIPS
         config.type = 'fade'
         config.scale = 0.7
     elseif eval_type == 'a_xchips' then
         sound = 'chips1'
         amt = amt
-        text = "X" .. amt .. " Chips"
+        text = "X" .. amt
         colour = G.C.CHIPS
         config.type = 'fade'
         config.scale = 0.7
@@ -212,6 +213,26 @@ function xMult(amt,card)
         {mult = mult}
     )
     EzSc_card_eval_status_text(card, 'x_mult', amt, percent)
+end
+
+function zeroChips(card)
+    local start_chips
+    hand_chips = mod_chips(0)
+    update_hand_text(
+        {delay = 0},
+        {chips = hand_chips}
+    )
+    EzSc_card_eval_status_text(card, 'a_chips', -start_chips, percent)
+end
+
+function zeroMult(card)
+    local start_mult
+    mult = mod_mult(0)
+    update_hand_text(
+        {delay = 0},
+        {mult = mult}
+    )
+    EzSc_card_eval_status_text(card, 'a_chips', -start_mult, percent)
 end
 
 SMODS.Atlas { -- modicon
