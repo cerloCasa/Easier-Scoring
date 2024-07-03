@@ -10,7 +10,7 @@ This [mod](https://github.com/cerloCasa/Easier-Scoring/releases/tag/v1.1-EasierS
 In order to use it, put this code in your Joker's calculate function
 ```lua
 if context.joker_main then
-  aMult(20,card) -- does +20 Mult
+  aMult(20,context.blueprint_card or card) -- does +20 Mult
 end
 ```
 other versions to multiply Chips *(like for each scoring card)* are made like this
