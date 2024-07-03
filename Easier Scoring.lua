@@ -5,9 +5,8 @@
 --- MOD_DESCRIPTION: This mod adds functions for increasing Mult and Chips without putting them in the return brackets
 --- BADGE_COLOR: 4285F4
 --- PREFIX: EzSc
---- PRIORITY: -10000000
 --- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.0
+--- VERSION: 1.1
 
 -- HOW TO USE
 -- if context.joker_main then
@@ -17,43 +16,7 @@
 --     xChips(3,context.other_card) -- each scoring card does x3 Chips
 -- end
 
-function aChips(amt,card)
-    hand_chips = mod_chips(hand_chips + (amt or 0))
-    update_hand_text(
-        {delay = 0},
-        {chips = hand_chips}
-    )
-    card_eval_status_text(card, 'a_chips', amt, percent)
-end
-
-function xChips(amt,card)
-    hand_chips = mod_chips(hand_chips * (amt or 1))
-    update_hand_text(
-        {delay = 0},
-        {chips = hand_chips}
-    )
-    card_eval_status_text(card, 'a_xchips', amt, percent)
-end
-
-function aMult(amt,card)
-    mult = mod_mult(mult + (amt or 0))
-    update_hand_text(
-        {delay = 0},
-        {mult = mult}
-    )
-    card_eval_status_text(card, 'a_mult', amt, percent)
-end
-
-function xMult(amt,card)
-    mult = mod_mult(mult * (amt or 1))
-    update_hand_text(
-        {delay = 0},
-        {mult = mult}
-    )
-    card_eval_status_text(card, 'a_xmult', amt, percent)
-end
-
-function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+local function EzSc_card_eval_status_text(card, eval_type, amt, percent, dir, extra)
     percent = percent or (0.9 + 0.2*math.random())
     if dir == 'down' then 
         percent = 1-percent
@@ -213,4 +176,40 @@ function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
     if extra and extra.playing_cards_created then 
         playing_card_joker_effects(extra.playing_cards_created)
     end
+end
+
+function aChips(amt,card)
+    hand_chips = mod_chips(hand_chips + (amt or 0))
+    update_hand_text(
+        {delay = 0},
+        {chips = hand_chips}
+    )
+    EzSc_card_eval_status_text(card, 'a_chips', amt, percent)
+end
+
+function xChips(amt,card)
+    hand_chips = mod_chips(hand_chips * (amt or 1))
+    update_hand_text(
+        {delay = 0},
+        {chips = hand_chips}
+    )
+    EzSc_card_eval_status_text(card, 'a_xchips', amt, percent)
+end
+
+function aMult(amt,card)
+    mult = mod_mult(mult + (amt or 0))
+    update_hand_text(
+        {delay = 0},
+        {mult = mult}
+    )
+    EzSc_card_eval_status_text(card, 'mult', amt, percent)
+end
+
+function xMult(amt,card)
+    mult = mod_mult(mult * (amt or 1))
+    update_hand_text(
+        {delay = 0},
+        {mult = mult}
+    )
+    EzSc_card_eval_status_text(card, 'x_mult', amt, percent)
 end
