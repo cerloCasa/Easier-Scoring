@@ -1,3 +1,4 @@
+![img](https://raw.githubusercontent.com/cerloCasa/Easier-Scoring/main/assets/2x/modicon.png)
 # Easier Scoring
 This [mod](https://github.com/cerloCasa/Easier-Scoring/releases/tag/v1.1-EasierScoring) implements easy functions to put in your Jokers `calculate` functions, so you can perform modifications at the Chips and Mult values instead of putting them inside the `return{}` brackets.
 ## Commands
