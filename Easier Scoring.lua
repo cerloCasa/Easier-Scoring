@@ -7,14 +7,14 @@
 --- PRIORITY: 10000
 --- PREFIX: EzSc
 --- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.2
+--- VERSION: 1.2b
 
 -- HOW TO USE
 -- if context.joker_main then
---     xChips(2,context.blueprint_card or card) -- does x2 Chips
+--     xChips(2,card,context) -- does x2 Chips
 -- end
 -- if context.individual and context.cardarea == G.play then
---     xChips(3,context.other_card) -- each scoring card does x3 Chips
+--     xChips(3,context.other_card,context) -- each scoring card does x3 Chips
 -- end
 
 local function EzSc_card_eval_status_text(card, eval_type, amt, percent, dir, extra)
@@ -179,60 +179,60 @@ local function EzSc_card_eval_status_text(card, eval_type, amt, percent, dir, ex
     end
 end
 
-function aChips(amt,card)
+function aChips(amt,card,context)
     hand_chips = mod_chips(hand_chips + (amt or 0))
     update_hand_text(
         {delay = 0},
         {chips = hand_chips}
     )
-    EzSc_card_eval_status_text(card, 'a_chips', amt, percent)
+    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_chips', amt, percent)
 end
 
-function xChips(amt,card)
+function xChips(amt,card,context)
     hand_chips = mod_chips(hand_chips * (amt or 1))
     update_hand_text(
         {delay = 0},
         {chips = hand_chips}
     )
-    EzSc_card_eval_status_text(card, 'a_xchips', amt, percent)
+    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_xchips', amt, percent)
 end
 
-function aMult(amt,card)
+function aMult(amt,card,context)
     mult = mod_mult(mult + (amt or 0))
     update_hand_text(
         {delay = 0},
         {mult = mult}
     )
-    EzSc_card_eval_status_text(card, 'mult', amt, percent)
+    EzSc_card_eval_status_text(context.blueprint_card or card, 'mult', amt, percent)
 end
 
-function xMult(amt,card)
+function xMult(amt,card,context)
     mult = mod_mult(mult * (amt or 1))
     update_hand_text(
         {delay = 0},
         {mult = mult}
     )
-    EzSc_card_eval_status_text(card, 'x_mult', amt, percent)
+    EzSc_card_eval_status_text(context.blueprint_card or card, 'x_mult', amt, percent)
 end
 
-function zeroChips(card)
+function zeroChips(card,context)
     local start_chips
     hand_chips = mod_chips(0)
     update_hand_text(
         {delay = 0},
         {chips = hand_chips}
     )
-    EzSc_card_eval_status_text(card, 'a_chips', -start_chips, percent)
+    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_chips', -start_chips, percent)
 end
 
-function zeroMult(card)
+function zeroMult(card,context)
     local start_mult
     mult = mod_mult(0)
     update_hand_text(
         {delay = 0},
         {mult = mult}
     )
-    EzSc_card_eval_status_text(card, 'a_chips', -start_mult, percent)
+    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_chips', -start_mult, percent)
 end
 
 SMODS.Atlas { -- modicon
