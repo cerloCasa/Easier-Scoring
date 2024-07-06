@@ -1,3 +1,5 @@
+--- NOT USING THIS VERSION
+
 --- STEAMODDED HEADER
 --- MOD_NAME: Easier Scoring
 --- MOD_ID: EasierScoring
@@ -17,7 +19,7 @@
 --     xChips(3,context.other_card,context) -- each scoring card does x3 Chips
 -- end
 
-local function EzSc_card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+function EzSc_card_eval_status_text(card, eval_type, amt, percent, calling_joker, dir, extra)
     percent = percent or (0.9 + 0.2*math.random())
     if dir == 'down' then 
         percent = 1-percent
@@ -185,8 +187,36 @@ function aChips(amt,card,context)
         {delay = 0},
         {chips = hand_chips}
     )
-    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_chips', amt, percent)
+    if context.other_card then  -- The message is shown on the card
+        local _card = context.blueprint_card or card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                _card:juice_up(0.5, 0.5)
+                return true
+            end
+        })) 
+        EzSc_card_eval_status_text(
+            context.other_card,
+            'a_chips',
+            amt or 0,
+            percent
+        )
+    else                        -- The message is shown on the joker
+        EzSc_card_eval_status_text(
+            context.blueprint_card or card,
+            'a_chips',
+            amt or 0,
+            percent
+        )
+    end
 end
+
+G.E_MANAGER:add_event(Event({
+    func = function()
+        -- FUNCTION
+        return true
+    end
+}))
 
 function xChips(amt,card,context)
     hand_chips = mod_chips(hand_chips * (amt or 1))
@@ -194,7 +224,28 @@ function xChips(amt,card,context)
         {delay = 0},
         {chips = hand_chips}
     )
-    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_xchips', amt, percent)
+    if context.other_card then  -- The message is shown on the card
+        local _card = context.blueprint_card or card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                _card:juice_up(0.5, 0.5)
+                return true
+            end
+        })) 
+        EzSc_card_eval_status_text(
+            context.other_card,
+            'a_xchips',
+            amt or 1,
+            percent
+        )
+    else                        -- The message is shown on the joker
+        EzSc_card_eval_status_text(
+            context.blueprint_card or card,
+            'a_xchips',
+            amt or 1,
+            percent
+        )
+    end
 end
 
 function aMult(amt,card,context)
@@ -203,7 +254,28 @@ function aMult(amt,card,context)
         {delay = 0},
         {mult = mult}
     )
-    EzSc_card_eval_status_text(context.blueprint_card or card, 'mult', amt, percent)
+    if context.other_card then  -- The message is shown on the card
+        local _card = context.blueprint_card or card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                _card:juice_up(0.5, 0.5)
+                return true
+            end
+        })) 
+        EzSc_card_eval_status_text(
+            context.other_card,
+            'mult',
+            amt or 0,
+            percent
+        )
+    else                        -- The message is shown on the joker
+        EzSc_card_eval_status_text(
+            context.blueprint_card or card,
+            'mult',
+            amt or 0,
+            percent
+        )
+    end
 end
 
 function xMult(amt,card,context)
@@ -212,7 +284,28 @@ function xMult(amt,card,context)
         {delay = 0},
         {mult = mult}
     )
-    EzSc_card_eval_status_text(context.blueprint_card or card, 'x_mult', amt, percent)
+    if context.other_card then  -- The message is shown on the card
+        local _card = context.blueprint_card or card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                _card:juice_up(0.5, 0.5)
+                return true
+            end
+        })) 
+        EzSc_card_eval_status_text(
+            context.other_card,
+            'x_mult',
+            amt or 1,
+            percent
+        )
+    else                        -- The message is shown on the joker
+        EzSc_card_eval_status_text(
+            context.blueprint_card or card,
+            'x_mult',
+            amt or 1,
+            percent
+        )
+    end
 end
 
 function zeroChips(card,context)
@@ -222,7 +315,28 @@ function zeroChips(card,context)
         {delay = 0},
         {chips = hand_chips}
     )
-    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_chips', -start_chips, percent)
+    if context.other_card then  -- The message is shown on the card
+        local _card = context.blueprint_card or card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                _card:juice_up(0.5, 0.5)
+                return true
+            end
+        })) 
+        EzSc_card_eval_status_text(
+            context.other_card,
+            'a_chips',
+            -start_chips,
+            percent
+        )
+    else                        -- The message is shown on the joker
+        EzSc_card_eval_status_text(
+            context.blueprint_card or card,
+            'a_chips',
+            -start_chips,
+            percent
+        )
+    end
 end
 
 function zeroMult(card,context)
@@ -232,7 +346,28 @@ function zeroMult(card,context)
         {delay = 0},
         {mult = mult}
     )
-    EzSc_card_eval_status_text(context.blueprint_card or card, 'a_chips', -start_mult, percent)
+    if context.other_card then  -- The message is shown on the card
+        local _card = context.blueprint_card or card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                _card:juice_up(0.5, 0.5)
+                return true
+            end
+        })) 
+        EzSc_card_eval_status_text(
+            context.other_card,
+            'mult',
+            -start_mult,
+            percent
+        )
+    else                        -- The message is shown on the joker
+        EzSc_card_eval_status_text(
+            context.blueprint_card or card,
+            'mult',
+            -start_mult,
+            percent
+        )
+    end
 end
 
 SMODS.Atlas { -- modicon
