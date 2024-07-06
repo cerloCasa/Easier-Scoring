@@ -2176,8 +2176,9 @@ G.FUNCS.tut_next = function(e)
             G.jokers.cards[i]:calculate_joker({using_consumeable = true, consumeable = card})
             if next(EzSc_Effects) then
                 if EzSc_Effects.dollars then
+                    print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.." in context.use_consumeable")
                     ease_dollars(EzSc_Effects.dollars)
-                    card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                    card_eval_status_text(EzSc_Effects.card, 'dollars', EzSc_Effects.dollars, percent)
                 end
             end
             EzSc_Effects = {}
@@ -2288,8 +2289,9 @@ G.FUNCS.tut_next = function(e)
         end
         if next(EzSc_Effects) then
             if EzSc_Effects.dollars then
+              print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.." in context.selling_card")
                 ease_dollars(EzSc_Effects.dollars)
-                card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                card_eval_status_text(EzSc_Effects.card, 'dollars', EzSc_Effects.dollars, percent)
             end
         end
         EzSc_Effects = {}
@@ -2532,8 +2534,9 @@ G.FUNCS.tut_next = function(e)
         G.jokers.cards[i]:calculate_joker({skipping_booster = true})
         if next(EzSc_Effects) then
             if EzSc_Effects.dollars then
-                ease_dollars(EzSc_Effects.dollars)
-                card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+              print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.." in context.skipping_booster")
+              ease_dollars(EzSc_Effects.dollars)
+              card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
             end
         end
         EzSc_Effects = {}
@@ -2749,8 +2752,9 @@ G.FUNCS.tut_next = function(e)
                 G.jokers.cards[i]:calculate_joker({skip_blind = true})
                 if next(EzSc_Effects) then
                     if EzSc_Effects.dollars then
-                        ease_dollars(EzSc_Effects.dollars)
-                        card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                      print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.." in context.skip_blind")
+                      ease_dollars(EzSc_Effects.dollars)
+                      card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
                     end
                 end
                 EzSc_Effects = {}
@@ -2889,8 +2893,9 @@ G.FUNCS.tut_next = function(e)
                 G.jokers.cards[i]:calculate_joker({reroll_shop = true})
                 if next(EzSc_Effects) then
                     if EzSc_Effects.dollars then
-                        ease_dollars(EzSc_Effects.dollars)
-                        card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                      print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.." in context.reroll_shop")
+                      ease_dollars(EzSc_Effects.dollars)
+                      card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
                     end
                 end
                 EzSc_Effects = {}

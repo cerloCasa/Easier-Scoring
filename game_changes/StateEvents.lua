@@ -104,8 +104,9 @@ function end_round()
                 end
                 if next(EzSc_Effects) then
                     if EzSc_Effects.dollars then
+                        print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.label.." in context.end_of_round")
                         ease_dollars(EzSc_Effects.dollars)
-                        card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                        card_eval_status_text(EzSc_Effects.card, 'dollars', EzSc_Effects.dollars, percent)
                     end
                 end
                 EzSc_Effects = {}
@@ -341,8 +342,9 @@ function new_round()
                 G.jokers.cards[i]:calculate_joker({setting_blind = true, blind = G.GAME.round_resets.blind})
                 if next(EzSc_Effects) then
                     if EzSc_Effects.dollars then
+                        print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.label.." in context.setting_blind")
                         ease_dollars(EzSc_Effects.dollars)
-                        card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                        card_eval_status_text(EzSc_Effects.card, 'dollars', EzSc_Effects.dollars, percent)
                     end
                 end
                 EzSc_Effects = {}
@@ -421,8 +423,9 @@ G.FUNCS.discard_cards_from_highlighted = function(e, hook)
                 end
                 if next(EzSc_Effects) then
                     if EzSc_Effects.dollars then
+                        print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.label.." in context.discard")
                         ease_dollars(EzSc_Effects.dollars)
-                        card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                        card_eval_status_text(EzSc_Effects.card, 'dollars', EzSc_Effects.dollars, percent)
                     end
                 end
                 EzSc_Effects = {}
@@ -658,12 +661,14 @@ G.FUNCS.evaluate_play = function(e)
             end
             if next(EzSc_Effects) then
                 if EzSc_Effects.dollars then
+                    print("EZSC: Dollars +"..EzSc_Effects.dollars.."$ by "..EzSc_Effects.card.label.." in context.before")
                     ease_dollars(EzSc_Effects.dollars)
-                    card_eval_status_text(G.jokers.cards[i], 'dollars', EzSc_Effects.dollars, percent)
+                    card_eval_status_text(EzSc_Effects.card, 'dollars', EzSc_Effects.dollars, percent)
                 end
                 if EzSc_Effects.level_up then
                     for i = 1,EzSc_Effects.level_up do
-                        level_up_hand(G.jokers.cards[i], text)
+                        print("EZSC: LevelUp +"..EzSc_Effects.leve_up.." by "..EzSc_Effects.card.label.." in context.before")
+                        level_up_hand(EzSc_Effects.card, text)
                     end
                 end
                 percent = percent + delta
@@ -718,6 +723,7 @@ G.FUNCS.evaluate_play = function(e)
                     end
                     if next(EzSc_Effects) then
                         if EzSc_Effects.repetitions then
+                            print("EZSC: Repetitions +"..EzSc_Effects.repetitions.." by "..EzSc_Effects.card.label.." in context.repetition G.play")
                             reps[#reps + 1] = EzSc_Effects.repetitions + 1
                         end
                         EzSc_Effects = {}
@@ -741,6 +747,7 @@ G.FUNCS.evaluate_play = function(e)
                             table.insert(effects, eval)
                         end
                         if next(EzSc_Effects) then
+                            print("EZSC: Effects:\n"..(tprint(EzSc_Effects)).."\nby "..EzSc_Effects.card.label.." in context.individual G.play")
                             table.insert(effects, EzSc_Effects)
                             EzSc_Effects = {}
                         end
@@ -865,6 +872,7 @@ G.FUNCS.evaluate_play = function(e)
                         end
                         if next(EzSc_Effects) then
                             mod_percent = true
+                            print("EZSC: Effects:\n"..tprint(EzSc_Effects).."\nby "..EzSc_Effects.card.label.." in context.individual G.hand")
                             table.insert(effects, EzSc_Effects)
                             EzSc_Effects = {}
                         end
@@ -888,6 +896,7 @@ G.FUNCS.evaluate_play = function(e)
                             local eval = eval_card(G.jokers.cards[j], {cardarea = G.hand, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, other_card = G.hand.cards[i], repetition = true, card_effects = effects})
                             if next(eval) then 
                                 for h  = 1, eval.jokers.repetitions do
+                                    print("EZSC: Repetitions +"..EzSc_Effects.repetitions.." by "..EzSc_Effects.card.label.." in context.repetition G.hand")
                                     reps[#reps+1] = eval
                                 end
                             end
@@ -998,6 +1007,7 @@ G.FUNCS.evaluate_play = function(e)
 
             local effects = eval_card(_card, {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, joker_main = true})
             if next(EzSc_Effects) then
+                print("EZSC: Effects:"..tprint(EzSc_Effects).."\nby "..EzSc_Effects.card.label.." in context.joker_main")
                 table.insert(effects,EzSc_Effects)
                 EzSc_Effects = {}
             end
@@ -1043,6 +1053,7 @@ G.FUNCS.evaluate_play = function(e)
                 EzSc_Effects = {}
                 local effect = v:calculate_joker{full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, other_joker = _card}
                 if next(EzSc_Effects) then
+                    print("EZSC: Effects:\n"..tprint(EzSc_Effects).."\nby "..EzSc_Effects.card.label.." in context.other_joker")
                     table.insert(effects,EzSc_Effects)
                     EzSc_Effects = {}
                 end
@@ -1230,7 +1241,8 @@ G.FUNCS.evaluate_play = function(e)
         if next(EzSc_Effects) then
             if EzSc_Effects.level_up then
                 for i = 1,EzSc_Effects.level_up do
-                    level_up_hand(G.jokers.cards[i], text)
+                    print("EZSC: LevelUp +"..EzSc_Effects.level_up.." by "..EzSc_Effects.card.label.." in context.after")
+                    level_up_hand(EzSc_Effects.card, text)
                 end
             end
             percent = percent + delta
