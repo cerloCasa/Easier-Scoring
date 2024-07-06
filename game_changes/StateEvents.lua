@@ -667,7 +667,7 @@ G.FUNCS.evaluate_play = function(e)
                 end
                 if EzSc_Effects.level_up then
                     for i = 1,EzSc_Effects.level_up do
-                        print("EZSC: LevelUp +"..EzSc_Effects.leve_up.." by "..EzSc_Effects.card.label.." in context.before")
+                        print("EZSC: LevelUp +"..EzSc_Effects.level_up.." by "..EzSc_Effects.card.label.." in context.before")
                         level_up_hand(EzSc_Effects.card, text)
                     end
                 end
@@ -1008,8 +1008,6 @@ G.FUNCS.evaluate_play = function(e)
             local effects = eval_card(_card, {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, joker_main = true})
             if next(EzSc_Effects) then
                 print("EZSC: Effects:"..tprint(EzSc_Effects).."\nby "..EzSc_Effects.card.label.." in context.joker_main")
-                table.insert(effects,EzSc_Effects)
-                EzSc_Effects = {}
             end
             --Any Joker effects
             if effects.jokers then 
@@ -1019,35 +1017,38 @@ G.FUNCS.evaluate_play = function(e)
                 if effects.jokers.Xmult_mod then mult = mod_mult(mult*effects.jokers.Xmult_mod);extras.mult = true  end
                 update_hand_text({delay = 0}, {chips = extras.hand_chips and hand_chips, mult = extras.mult and mult})
                 card_eval_status_text(_card, 'jokers', nil, percent, nil, effects.jokers)
-                
-                if effects.chips then
-                    hand_chips = mod_chips(hand_chips + effects.chips)
-                    update_hand_text({delay = 0}, {chips = hand_chips})
-                    card_eval_status_text(_card, 'chips', effects.chips, percent)
-                end
-                if effects.x_chips then
-                    hand_chips = mod_chips(hand_chips * effects.x_chips)
-                    update_hand_text({delay = 0}, {chips = hand_chips})
-                    EzSc_card_eval_status_text(_card, 'xChips', effects.x_chips, percent)
-                end
-                if effects.mult then
-                    mult = mod_mult(mult + effects.mult)
-                    update_hand_text({delay = 0}, {mult = mult})
-                    card_eval_status_text(_card, 'mult', effects.mult, percent)
-                end
-                if effects.x_mult then
-                    mult = mod_mult(mult * effects.x_mult)
-                    update_hand_text({delay = 0}, {mult = mult})
-                    card_eval_status_text(_card, 'x_mult', effects.x_mult, percent)
-                end
-                if effects.dollars then
-                    ease_dollars(effects.dollars)
-                    card_eval_status_text(_card, 'dollars', effects.dollars, percent)
-                end
-                
                 percent = percent+percent_delta
             end
-
+            if EzSc_Effects then 
+                if EzSc_Effects.chips then
+                    hand_chips = mod_chips(hand_chips + EzSc_Effects.chips)
+                    update_hand_text({delay = 0}, {chips = hand_chips})
+                    card_eval_status_text(_card, 'chips', EzSc_Effects.chips, percent)
+                end
+                if EzSc_Effects.x_chips then
+                    hand_chips = mod_chips(hand_chips * EzSc_Effects.x_chips)
+                    update_hand_text({delay = 0}, {chips = hand_chips})
+                    EzSc_card_eval_status_text(_card, 'xChips', EzSc_Effects.x_chips, percent)
+                end
+                if EzSc_Effects.mult then
+                    mult = mod_mult(mult + EzSc_Effects.mult)
+                    update_hand_text({delay = 0}, {mult = mult})
+                    card_eval_status_text(_card, 'mult', EzSc_Effects.mult, percent)
+                end
+                if EzSc_Effects.x_mult then
+                    mult = mod_mult(mult * EzSc_Effects.x_mult)
+                    update_hand_text({delay = 0}, {mult = mult})
+                    card_eval_status_text(_card, 'x_mult', EzSc_Effects.x_mult, percent)
+                end
+                if EzSc_Effects.dollars then
+                    ease_dollars(effects.dollars)
+                    card_eval_status_text(_card, 'dollars', EzSc_Effects.dollars, percent)
+                end
+                
+                EzSc_Effects = {}
+                percent = percent + percent_delta
+            end
+                
             --Joker on Joker effects
             for _, v in ipairs(G.jokers.cards) do
                 EzSc_Effects = {}

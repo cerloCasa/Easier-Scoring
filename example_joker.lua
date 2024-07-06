@@ -25,9 +25,9 @@ SMODS.Joker { -- Test 01
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    add_to_deck = function(self,card,from_debuff)
-        print(tprint(card))
-    end,
     calculate = function(self,card,context)
+        if context.joker_main then
+            aChips(20,card,context)
+        end
     end,
 }
