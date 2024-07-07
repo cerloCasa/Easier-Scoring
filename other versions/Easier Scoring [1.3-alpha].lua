@@ -5,8 +5,9 @@
 --- MOD_DESCRIPTION: This mod adds functions for easier Joker calculations
 --- BADGE_COLOR: 4285F4
 --- PREFIX: EzSc
+--- PRIORITY: -10000000000
 --- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.3-alpha
+--- VERSION: 1.3-alpha2
 
 SMODS.Atlas { -- modicon
     key = 'modicon',

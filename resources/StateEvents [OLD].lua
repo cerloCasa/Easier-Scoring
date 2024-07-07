@@ -1007,6 +1007,8 @@ G.FUNCS.evaluate_play = function(e)
 
             local effects = eval_card(_card, {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, joker_main = true})
             if next(EzSc_Effects) then
+                _card = EzSc_Effects.card
+                EzSc_Effects.card = nil
                 print("EZSC: Effects:"..tprint(EzSc_Effects).."\nby "..EzSc_Effects.card.label.." in context.joker_main")
             end
             --Any Joker effects
@@ -1054,6 +1056,8 @@ G.FUNCS.evaluate_play = function(e)
                 EzSc_Effects = {}
                 local effect = v:calculate_joker{full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, other_joker = _card}
                 if next(EzSc_Effects) then
+                    _card = EzSc_Effects.card
+                    EzSc_Effects.card = nil
                     print("EZSC: Effects:\n"..tprint(EzSc_Effects).."\nby "..EzSc_Effects.card.label.." in context.other_joker")
                     table.insert(effects,EzSc_Effects)
                     EzSc_Effects = {}

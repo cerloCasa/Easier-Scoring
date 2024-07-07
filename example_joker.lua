@@ -13,7 +13,7 @@ SMODS.Joker { -- Test 01
     loc_txt = {
         ['default'] = {
             name = 'Test 01',
-            text = {'Jokers ability'},
+            text = {'$30 before'},
         },
     },
     config = {extra = {}},
@@ -26,8 +26,9 @@ SMODS.Joker { -- Test 01
     eternal_compat = true,
     perishable_compat = true,
     calculate = function(self,card,context)
-        if context.joker_main then
-            aChips(20,card,context)
+        print("Joker's calc")
+        if context.before then
+            addMoney(30,card,context)
         end
     end,
 }
