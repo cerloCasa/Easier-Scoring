@@ -1,4 +1,4 @@
-function EzSc_card_eval_status_text(card, eval_type, amt, percent, calling_joker, dir, extra)
+function EzSc_card_eval_status_text(card, eval_type, amt, percent, dir, extra,callingJoker)
     percent = percent or (0.9 + 0.2*math.random())
     if dir == 'down' then 
         percent = 1-percent
@@ -40,14 +40,14 @@ function EzSc_card_eval_status_text(card, eval_type, amt, percent, calling_joker
         colour = G.C.CHIPS
         text = localize{type='variable',key='a_chips',vars={amt}}
         delay = 0.6
-    elseif eval_type == 'mult' then 
+    elseif eval_type == 'aMult' then 
         sound = 'multhit1'--'other1'
         amt = amt
         text = localize{type='variable',key='a_mult',vars={amt}}
         colour = G.C.MULT
         config.type = 'fade'
         config.scale = 0.7
-    elseif (eval_type == 'x_mult') or (eval_type == 'h_x_mult') then 
+    elseif (eval_type == 'xMult') or (eval_type == 'h_x_mult') then 
         sound = 'multhit2'
         volume = 0.7
         amt = amt
@@ -62,17 +62,25 @@ function EzSc_card_eval_status_text(card, eval_type, amt, percent, calling_joker
         colour = G.C.MULT
         config.type = 'fade'
         config.scale = 0.7
-    elseif eval_type == 'a_chips' then
+    elseif eval_type == 'aChips' then
         sound = 'chips1'
         amt = amt
-        text = "+" .. amt
+        if amt >= 0 then
+            text = "+" .. amt
+        else
+            text = "-" .. -amt
+        end
         colour = G.C.CHIPS
         config.type = 'fade'
         config.scale = 0.7
     elseif eval_type == 'xChips' then
         sound = 'chips1'
         amt = amt
-        text = "X" .. amt
+        if amt >= 0 then
+            text = "X" .. amt
+        else
+            text = "X " .. -amt
+        end
         colour = G.C.CHIPS
         config.type = 'fade'
         config.scale = 0.7
@@ -81,6 +89,16 @@ function EzSc_card_eval_status_text(card, eval_type, amt, percent, calling_joker
         amt = amt
         text = (amt <-0.01 and '-' or '')..localize("$")..tostring(math.abs(amt))
         colour = amt <-0.01 and G.C.RED or G.C.MONEY
+        if callingJoker then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_dollars(amt)
+                    callingJoker:juice_up(0.5,0.5)
+                    card:juice_up(0.6, 0.1)
+                    G.ROOM.jiggle = G.ROOM.jiggle + 0.7
+                    return true
+                end}))
+        end
     elseif eval_type == 'swap' then 
         sound = 'generic1'
         amt = amt
@@ -147,6 +165,9 @@ function EzSc_card_eval_status_text(card, eval_type, amt, percent, calling_joker
                     })
                     play_sound(sound, 0.8+percent*0.2, volume)
                     if not extra or not extra.no_juice then
+                        if callingJoker then
+                            callingJoker:juice_up(0.5,0.5)
+                        end
                         card:juice_up(0.6, 0.1)
                         G.ROOM.jiggle = G.ROOM.jiggle + 0.7
                     end

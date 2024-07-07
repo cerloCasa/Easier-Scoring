@@ -920,6 +920,34 @@ end
             end
         elseif context.individual then
             if context.cardarea == G.play then
+                -- EZSC START 26
+                if self.EzSc then
+                    if self.EzSc.aChips then
+                        hand_chips = mod_chips(hand_chips + self.EzSc.aChips)
+                        update_hand_text({delay = 0}, {chips = hand_chips})
+                        EzSc_card_eval_status_text(context.other_card,'aChips',self.EzSc.aChips,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.xChips then
+                        hand_chips = mod_chips(hand_chips * self.EzSc.xChips)
+                        update_hand_text({delay = 0}, {chips = hand_chips})
+                        EzSc_card_eval_status_text(context.other_card,'xChips',self.EzSc.xChips,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.aMult then
+                        mult = mod_mult(mult + self.EzSc.aMult)
+                        update_hand_text({delay = 0}, {mult = mult})
+                        EzSc_card_eval_status_text(context.other_card,'aMult',self.EzSc.aMult,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.xMult then
+                        mult = mod_mult(mult * self.EzSc.xMult)
+                        update_hand_text({delay = 0}, {mult = mult})
+                        EzSc_card_eval_status_text(context.other_card,'xMult',self.EzSc.xMult,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.dollars then
+                        ease_dollars(self.EzSc.dollars)
+                        EzSc_card_eval_status_text(context.other_card, 'dollars', self.EzSc.dollars,nil,nil,{delay = 0.45},self.EzSc.card)
+                    end
+                end
+                -- EZSC END 26
                 if self.ability.name == 'Hiker' then
                         context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
                         context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + self.ability.extra
@@ -1125,6 +1153,34 @@ end
                     end
             end
             if context.cardarea == G.hand then
+                -- EZSC START 27
+                if self.EzSc then
+                    if self.EzSc.aChips then
+                        hand_chips = mod_chips(hand_chips + self.EzSc.aChips)
+                        update_hand_text({delay = 0}, {chips = hand_chips})
+                        EzSc_card_eval_status_text(context.other_card,'aChips',self.EzSc.aChips,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.xChips then
+                        hand_chips = mod_chips(hand_chips * self.EzSc.xChips)
+                        update_hand_text({delay = 0}, {chips = hand_chips})
+                        EzSc_card_eval_status_text(context.other_card,'xChips',self.EzSc.xChips,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.aMult then
+                        mult = mod_mult(mult + self.EzSc.aMult)
+                        update_hand_text({delay = 0}, {mult = mult})
+                        EzSc_card_eval_status_text(context.other_card,'aMult',self.EzSc.aMult,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.xMult then
+                        mult = mod_mult(mult * self.EzSc.xMult)
+                        update_hand_text({delay = 0}, {mult = mult})
+                        EzSc_card_eval_status_text(context.other_card,'xMult',self.EzSc.xMult,nil,nil,nil,self.EzSc.card)
+                    end
+                    if self.EzSc.dollars then
+                        ease_dollars(self.EzSc.dollars)
+                        EzSc_card_eval_status_text(context.other_card, 'dollars', self.EzSc.dollars,nil,nil,{delay = 0.45},self.EzSc.card)
+                    end
+                end
+                -- EZSC END 27
                     if self.ability.name == 'Shoot the Moon' and
                         context.other_card:get_id() == 12 then
                         if context.other_card.debuff then
@@ -1254,6 +1310,63 @@ end
                 end
             end
         elseif context.other_joker then
+            -- EZSC START 25
+            if self.EzSc then
+                if self.EzSc.aChips then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            context.other_joker:juice_up(0.5, 0.5)
+                            return true
+                        end
+                    })) 
+                    hand_chips = mod_chips(hand_chips + self.EzSc.aChips)
+                    update_hand_text({delay = 0}, {chips = hand_chips})
+                    EzSc_card_eval_status_text(self.EzSc.card,'aChips',self.EzSc.aChips)
+                end
+                if self.EzSc.xChips then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            context.other_joker:juice_up(0.5, 0.5)
+                            return true
+                        end
+                    })) 
+                    hand_chips = mod_chips(hand_chips * self.EzSc.xChips)
+                    update_hand_text({delay = 0}, {chips = hand_chips})
+                    EzSc_card_eval_status_text(self.EzSc.card,'xChips',self.EzSc.xChips)
+                end
+                if self.EzSc.aMult then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            context.other_joker:juice_up(0.5, 0.5)
+                            return true
+                        end
+                    })) 
+                    mult = mod_mult(mult + self.EzSc.aMult)
+                    update_hand_text({delay = 0}, {mult = mult})
+                    EzSc_card_eval_status_text(self.EzSc.card,'aMult',self.EzSc.aMult)
+                end
+                if self.EzSc.xMult then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            context.other_joker:juice_up(0.5, 0.5)
+                            return true
+                        end
+                    })) 
+                    mult = mod_mult(mult * self.EzSc.xMult)
+                    update_hand_text({delay = 0}, {mult = mult})
+                    EzSc_card_eval_status_text(self.EzSc.card,'xMult',self.EzSc.xMult)
+                end
+                if self.EzSc.dollars then
+                    local MONEY = self.EzSc.dollars
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            ease_dollars(MONEY)
+                            EzSc_card_eval_status_text(context.blueprint or self, 'dollars', MONEY,nil,nil,{delay = 0.45})
+                            return true
+                        end}))
+                end
+            end
+            -- EZSC END 25
             if self.ability.name == 'Baseball Card' and context.other_joker.config.center.rarity == 2 and self ~= context.other_joker then
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -1269,7 +1382,7 @@ end
         else
             if context.cardarea == G.jokers then
                 if context.before then
-                    -- EZSC  
+                    -- EZSC START 23
                     if self.EzSc then
                         if self.EzSc.dollars then
                             ease_dollars(self.EzSc.dollars)
@@ -1499,6 +1612,39 @@ end
                         end
                     end
                 elseif context.joker_main then
+                    -- EZSC START 24
+                    if self.EzSc then
+                        if self.EzSc.aChips then
+                            hand_chips = mod_chips(hand_chips + self.EzSc.aChips)
+                            update_hand_text({delay = 0}, {chips = hand_chips})
+                            EzSc_card_eval_status_text(self.EzSc.card,'aChips',self.EzSc.aChips)
+                        end
+                        if self.EzSc.xChips then
+                            hand_chips = mod_chips(hand_chips * self.EzSc.xChips)
+                            update_hand_text({delay = 0}, {chips = hand_chips})
+                            EzSc_card_eval_status_text(self.EzSc.card,'xChips',self.EzSc.xChips)
+                        end
+                        if self.EzSc.aMult then
+                            mult = mod_mult(mult + self.EzSc.aMult)
+                            update_hand_text({delay = 0}, {mult = mult})
+                            EzSc_card_eval_status_text(self.EzSc.card,'aMult',self.EzSc.aMult)
+                        end
+                        if self.EzSc.xMult then
+                            mult = mod_mult(mult * self.EzSc.xMult)
+                            update_hand_text({delay = 0}, {mult = mult})
+                            EzSc_card_eval_status_text(self.EzSc.card,'xMult',self.EzSc.xMult)
+                        end
+                        if self.EzSc.dollars then
+                            local MONEY = self.EzSc.dollars
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    ease_dollars(MONEY)
+                                    EzSc_card_eval_status_text(context.blueprint or self, 'dollars', MONEY,nil,nil,{delay = 0.45})
+                                    return true
+                                end}))
+                        end
+                    end
+                    -- EZSC END 24
                         if self.ability.name == 'Loyalty Card' then
                             self.ability.loyalty_remaining = (self.ability.extra.every-1-(G.GAME.hands_played - self.ability.hands_played_at_create))%(self.ability.extra.every+1)
                             if context.blueprint then
@@ -1930,6 +2076,9 @@ end
             end
         end
         -- EZSC START 02
+        if self.EzSc then
+            self.EzSc = {}
+        end
         if next(RET_EZSC) then
             return{
                 message = RET_EZSC.message,

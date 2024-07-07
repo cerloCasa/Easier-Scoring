@@ -13,7 +13,7 @@ SMODS.Joker { -- Test 01
     loc_txt = {
         ['default'] = {
             name = 'Test 01',
-            text = {'$30 before'},
+            text = {'context.individual and cardarea == G.hand','+30 Chips','X2 Chips','+8 Mult','X1.5 Mult','+10$'},
         },
     },
     config = {extra = {}},
@@ -26,9 +26,8 @@ SMODS.Joker { -- Test 01
     eternal_compat = true,
     perishable_compat = true,
     calculate = function(self,card,context)
-        print("Joker's calc")
-        if context.before then
-            addMoney(30,card,context)
+        if context.repetition and context.cardarea == G.play then
+            retriggerCard(1,card,context)
         end
     end,
 }

@@ -148,17 +148,3 @@ function addMoney(amt,card,context)
         return
     end
 end
-
-function retriggerCard(amt,card,context)
-    initializeEzSc(card)
-    if context.repetition and cardarea == G.play then 
-        card.EzSc.card = card
-        card.EzSc.retriggers = amt
-    elseif context.repetition and cardarea == G.hand then 
-        card.EzSc.card = card
-        card.EzSc.retriggers = amt
-    else
-        sendErrorMessage('Context for retriggerCard not supported, check the mod\'s Wiki','Easier-Scoring')
-        return
-    end
-end
