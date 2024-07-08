@@ -14,7 +14,7 @@ SMODS.Atlas { -- modicon
     px = 34,
     py = 34,
     path = 'modicon.png',
-}
+} 
 
 load(NFS.read(SMODS.current_mod.path .. 'util/EzSc_card_eval_status_text.lua'))()
 load(NFS.read(SMODS.current_mod.path .. 'util/EzSc_calculate_joker.lua'))()
