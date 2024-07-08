@@ -7,7 +7,7 @@
 --- PREFIX: EzSc
 --- PRIORITY: -10000000000000
 --- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.3-REWORKED-0.1
+--- VERSION: 1.3
 
 SMODS.Atlas { -- modicon
     key = 'modicon',
