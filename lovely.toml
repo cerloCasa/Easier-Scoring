@@ -1,0 +1,25 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.regex]
+target = "card.lua"
+pattern = '[\t ]*v:calculate\(\w*, \w*\)[\s ]*\w*[\s ]*\w*[\s ]*\w*\s'
+position = "at"
+payload = '''
+-- EZSC START
+            v:calculate(self, context)
+        end
+    end
+end
+if self.EzSc then
+    local RET EzSc_calculate_joker(self,context)
+    self.EzSc = nil
+    return RET
+end
+-- EZSC END
+
+'''
+overwrite = true

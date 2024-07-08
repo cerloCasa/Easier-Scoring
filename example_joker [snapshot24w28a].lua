@@ -5,8 +5,8 @@
 --- MOD_DESCRIPTION: This mod adds Jokers for testing the Easier Scoring Mod
 --- BADGE_COLOR: 4285F4
 --- PREFIX: ExJo
---- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.3
+--- VERSION: snapshot24w28a
+--- DEPENDENCIES: [EasierScoring]
 
 SMODS.Joker {
     key = 'ExampleJoker',
@@ -28,7 +28,7 @@ SMODS.Joker {
     perishable_compat = true,
     calculate = function(self,card,context)
         if context.joker_main then
-            xChips(3,card,context)
+            xChips(10,card,context)
         end
     end,
 }

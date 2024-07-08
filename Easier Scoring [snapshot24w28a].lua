@@ -6,8 +6,8 @@
 --- BADGE_COLOR: 4285F4
 --- PREFIX: EzSc
 --- PRIORITY: -10000000000000
---- LOADER_VERSION_GEQ: 1.0.0
---- VERSION: 1.4
+--- LOADER_VERSION_GEQ: 1.0.0-ALPHA-0706a-STEAMODDED
+--- VERSION: snapshot24w28a
 
 SMODS.Atlas { -- modicon
     key = 'modicon',
@@ -17,12 +17,16 @@ SMODS.Atlas { -- modicon
 }
 
 load(NFS.read(SMODS.current_mod.path .. 'util/EzSc_card_eval_status_text.lua'))()
-load(NFS.read(SMODS.current_mod.path .. 'util/calculateJoker.lua'))()
+load(NFS.read(SMODS.current_mod.path .. 'util/EzSc_calculate_joker.lua'))()
 
-local function initializeEzSc(card)
+function initializeEzSc(card)
     if not card.EzSc then
         card.EzSc = {}
     end
+end
+
+function destroyEzSc(card)
+    card.EzSc = nil
 end
 
 function aChips(amt,card,context)
