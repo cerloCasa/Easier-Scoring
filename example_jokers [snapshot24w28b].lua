@@ -27,9 +27,9 @@ SMODS.Joker {
     rarity = 1, -- 1 common, 2 uncommon, 3 rare, 4 legendary
     atlas = 'exampleJoker',
     pos = {x = 0, y = 0},
-    cost = 3,
+    cost = 0,
     unlocked = true,
-    discovered = false,
+    discovered = true,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
