@@ -25,10 +25,6 @@ function initializeEzSc(card)
     end
 end
 
-function destroyEzSc(card)
-    card.EzSc = nil
-end
-
 function aChips(amt,card,context)
     initializeEzSc(card)
     if context.individual and context.cardarea == G.play then 
