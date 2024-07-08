@@ -2,11 +2,18 @@
 --- MOD_NAME: Example Jokers
 --- MOD_ID: ExampleJokers
 --- MOD_AUTHOR: [Cerlo]
---- MOD_DESCRIPTION: This mod adds Jokers for testing the Easier Scoring Mod
+--- MOD_DESCRIPTION: This is a template mod for testing the Easier Scoring Mod
 --- BADGE_COLOR: 4285F4
 --- PREFIX: ExJo
 --- VERSION: snapshot24w28b
 --- DEPENDENCIES: [EasierScoring]
+
+SMODS.Atlas { -- Example Joker
+    key = 'exampleJoker',
+    px = 71,
+    py = 95,
+    path = 'exampleJoker.png',
+}
 
 SMODS.Joker {
     key = 'ExampleJoker',
@@ -31,11 +38,4 @@ SMODS.Joker {
             xChips(1.5,card,context)
         end
     end,
-}
-
-SMODS.Atlas { -- Example Joker
-    key = 'exampleJoker',
-    px = 71,
-    py = 95,
-    path = 'exampleJoker.png',
 }
