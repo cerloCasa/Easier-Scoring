@@ -92,18 +92,18 @@ end
 function addMoney(amt,card,context)
     initializeEzSc(card)
     local isContextSupported = (
-        (context.before) or
-        (context.discard) or
-        (context.end_of_round and not context.repetition) or
-        (context.individual) or
-        (context.joker_main) or
-        (context.other_joker) or
-        (context.reroll_shop) or
-        (context.selling_card) or
-        (context.setting_blind) or
-        (context.skip_blind) or
-        (context.skipping_booster) or
-        (context.using_consumeable)
+       (context.before) or
+       (context.discard) or
+       (context.end_of_round and not context.repetition) or
+       (context.individual) or
+       (context.joker_main) or
+       (context.other_joker) or
+       (context.reroll_shop) or
+       (context.selling_card) or
+       (context.setting_blind) or
+       (context.skip_blind) or
+       (context.skipping_booster) or
+       (context.using_consumeable)
     )
     if isContextSupported then 
         card.EzSc.card = card

@@ -28,7 +28,7 @@ SMODS.Joker {
     perishable_compat = true,
     calculate = function(self,card,context)
         if context.joker_main then
-            aChips(10,card,context)
+            xChips(1.5,card,context)
         end
     end,
 }
