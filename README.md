@@ -64,5 +64,6 @@ Developing this mod, I found that many are the different contexts and commands I
 - `context.using_consumeable`: `addMoney`;
 - `context.discard`: `addMoney`;
 - `context.end_of_round and not context.repetition`: `addMoney`;
-- `context.before`: `addMoney`;
+- `context.before`: `addMoney`.
+
 If a context isn't listed here, while being supported by the mod, then it has already been tested. Thank you for your support.
