@@ -5,7 +5,7 @@
 --- MOD_DESCRIPTION: This is a template mod for testing the Easier Scoring Mod
 --- BADGE_COLOR: 4285F4
 --- PREFIX: ExJo
---- VERSION: snapshot24w28b
+--- VERSION: snapshot24w28c
 --- DEPENDENCIES: [EasierScoring]
 
 SMODS.Atlas { -- Example Joker
@@ -20,7 +20,7 @@ SMODS.Joker {
     loc_txt = {
         ['default'] = {
             name = 'Example Joker',
-            text = {'This is an {C:attention}example Joker'},
+            text = {'This is an','{C:attention}Example{} Joker'},
         },
     },
     config = {extra = {}},
@@ -34,8 +34,11 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     calculate = function(self,card,context)
-        if context.joker_main then
-            xChips(1.5,card,context)
+        if context.other_joker and self ~= context.other_joker then
+            aChips(1,card,context)
+            xChips(2,card,context)
+            aMult(3,card,context)
+            xMult(4,card,context)
         end
     end,
 }

@@ -7,7 +7,7 @@
 --- PREFIX: EzSc
 --- PRIORITY: -10000000000000
 --- LOADER_VERSION_GEQ: 1.0.0-ALPHA-0706a-STEAMODDED
---- VERSION: snapshot24w28b
+--- VERSION: snapshot24w28c
 
 SMODS.Atlas { -- modicon
     key = 'modicon',

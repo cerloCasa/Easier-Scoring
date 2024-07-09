@@ -5,21 +5,65 @@ priority = 0
 
 [[patches]]
 [patches.regex]
-target = "card.lua"
-pattern = '[\t ]*v:calculate\(\w*, \w*\)[\s ]*\w*[\s ]*\w*[\s ]*\w*\s'
-position = "at"
-payload = '''
--- EZSC START
-            v:calculate(self, context)
+target = 'card.lua'
+pattern = 'local o \= obj\:calculate\(self, context\)'
+position = 'at'
+payload = '''local o = obj:calculate(self, context)
+        if self.EzSc then
+            local RET = EzSc_calculate_joker(self,context)
+            self.EzSc = nil
+            return RET
         end
-    end
-end
-if self.EzSc then
-    local RET EzSc_calculate_joker(self,context)
-    self.EzSc = nil
-    return RET
-end
--- EZSC END
+'''
+overwrite = true
 
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+pattern = '[\t]*\-\-If mult added, do mult add event and add the mult to the total'
+position = 'at'
+payload = '''if effects[ii].xChips then
+                            if effects[ii].card then juice_card(effects[ii].card) end
+                            hand_chips = mod_chips(hand_chips * effects[ii].xChips)
+                            update_hand_text({delay = 0}, {chips = hand_chips})
+                            EzSc_card_eval_status_text(scoring_hand[i],'xChips',effects[ii].xChips)                         
+                        end
+
+                        --If mult added, do mult add event and add the mult to the total'''
+overwrite = true
+
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+pattern = '\-\-If hold mult added, do hold mult add event and add the mult to the total'
+position = 'at'
+payload = '''--If hold mult added, do hold mult add event and add the mult to the total
+if effects[ii].aChips then 
+    if effects[ii].card then juice_card(effects[ii].card) end
+    hand_chips = mod_chips(hand_chips + effects[ii].aChips)
+    update_hand_text({delay = 0}, {chips = hand_chips})
+    card_eval_status_text(G.hand.cards[i], 'chips', effects[ii].aChips, percent)
+end
+
+if effects[ii].xChips then
+    if effects[ii].card then juice_card(effects[ii].card) end
+    hand_chips = mod_chips(hand_chips * effects[ii].xChips)
+    update_hand_text({delay = 0}, {chips = hand_chips})
+    EzSc_card_eval_status_text(G.hand.cards[i],'xChips',effects[ii].xChips)                         
+end
+
+if effects[ii].aMult then 
+    if effects[ii].card then juice_card(effects[ii].card) end
+    mult = mod_mult(mult + effects[ii].aMult)
+    update_hand_text({delay = 0}, {mult = mult})
+    card_eval_status_text(G.hand.cards[i], 'mult', effects[ii].aMult, percent)
+end
+
+if effects[ii].xMult then 
+    if effects[ii].card then juice_card(effects[ii].card) end
+    mult = mod_mult(mult + effects[ii].xMult)
+    update_hand_text({delay = 0}, {mult = mult})
+    card_eval_status_text(G.hand.cards[i], 'mult', effects[ii].xMult, percent)
+end
 '''
 overwrite = true

@@ -56,32 +56,49 @@ function EzSc_calculate_joker(self,context)
         if self.EzSc.dollars then
             dollarsEvent(self,context)
         end
-    elseif context.individual then
+    elseif context.individual and context.cardarea == G.play then
         if self.EzSc.aChips then
-            hand_chips = mod_chips(hand_chips + self.EzSc.aChips)
-            update_hand_text({delay = 0}, {chips = hand_chips})
-            EzSc_card_eval_status_text(context.other_card,'aChips',self.EzSc.aChips,nil,nil,nil,self.EzSc.card)
+            RET.chips = self.EzSc.aChips
+            RET.card = self
         end
         if self.EzSc.xChips then
-            hand_chips = mod_chips(hand_chips * self.EzSc.xChips)
-            update_hand_text({delay = 0}, {chips = hand_chips})
-            EzSc_card_eval_status_text(context.other_card,'xChips',self.EzSc.xChips,nil,nil,nil,self.EzSc.card)
+            RET.xChips = self.EzSc.xChips
+            RET.card = self
         end
         if self.EzSc.aMult then
-            mult = mod_mult(mult + self.EzSc.aMult)
-            update_hand_text({delay = 0}, {mult = mult})
-            EzSc_card_eval_status_text(context.other_card,'aMult',self.EzSc.aMult,nil,nil,nil,self.EzSc.card)
+            RET.mult = self.EzSc.aMult
+            RET.card = self
         end
         if self.EzSc.xMult then
-            mult = mod_mult(mult * self.EzSc.xMult)
-            update_hand_text({delay = 0}, {mult = mult})
-            EzSc_card_eval_status_text(context.other_card,'xMult',self.EzSc.xMult,nil,nil,nil,self.EzSc.card)
+            RET.x_mult = self.EzSc.xMult
+            RET.card = self
         end
         if self.EzSc.dollars then
-            ease_dollars(self.EzSc.dollars)
-            EzSc_card_eval_status_text(context.other_card, 'dollars', self.EzSc.dollars,nil,nil,{delay = 0.45},self.EzSc.card)
+            RET.dollars = self.EzSc.dollars
+            RET.card = self
         end
-    elseif context.other_joker then
+    elseif context.individual and context.cardarea == G.hand then
+        if self.EzSc.aChips then
+            RET.aChips = self.EzSc.aChips
+            RET.card = self
+        end
+        if self.EzSc.xChips then
+            RET.xChips = self.EzSc.xChips
+            RET.card = self
+        end
+        if self.EzSc.aMult then
+            RET.aMult = self.EzSc.aMult
+            RET.card = self
+        end
+        if self.EzSc.xMult then
+            RET.xMult = self.EzSc.xMult
+            RET.card = self
+        end
+        if self.EzSc.dollars then
+            RET.dollars = self.EzSc.dollars
+            RET.card = self
+        end
+    elseif context.other_joker and self ~= context.other_joker then
         if self.EzSc.aChips then
             juiceUpOtherJoker(context)
             hand_chips = mod_chips(hand_chips + self.EzSc.aChips)
