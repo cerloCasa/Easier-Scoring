@@ -54,3 +54,15 @@ end
 ...
 ```
 Also, it modifies the behaviour of the `state_events.lua` file, to support `xChips()` in `context.individual`.
+## Testing
+Developing this mod, I found that many are the different contexts and commands I have to test and I unfortunately don't have the time right now to try them all. If you are reading this, please help me in testing these contexts:
+- `context.selling_card`: `addMoney`;
+- `context.reroll_shop`: `addMoney`;
+- `context.skip_blind`: `addMoney`;
+- `context.skipping_booster`: `addMoney`;
+- `context.setting_blind`: `addMoney`;
+- `context.using_consumeable`: `addMoney`;
+- `context.discard`: `addMoney`;
+- `context.end_of_round and not context.repetition`: `addMoney`;
+- `context.before`: `addMoney`;
+If a context isn't listed here, while being supported by the mod, then it has already been tested. Thank you for your support.
