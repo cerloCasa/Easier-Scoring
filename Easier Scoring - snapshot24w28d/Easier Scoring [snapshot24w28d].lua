@@ -6,8 +6,8 @@
 --- BADGE_COLOR: 4285F4
 --- PREFIX: EzSc
 --- PRIORITY: -10000000000000
---- LOADER_VERSION_GEQ: 1.0.0-ALPHA-0706a-STEAMODDED
---- VERSION: snapshot24w28c
+--- LOADER_VERSION_GEQ: 1.0.0
+--- VERSION: snapshot24w28d
 
 SMODS.Atlas { -- modicon
     key = 'modicon',
@@ -37,22 +37,6 @@ function aChips(amt,card,context)
         card.EzSc.aChips = amt
     else
         sendErrorMessage('Context for aChips not supported, check the mod\'s Wiki','Easier-Scoring')
-        return
-    end
-end
-
-function xChips(amt,card,context)
-    initializeEzSc(card)
-    local isContextSupported = (
-        (context.individual and not context.end_of_round) or
-        (context.joker_main) or
-        (context.other_joker)
-    )
-    if isContextSupported then
-        card.EzSc.card = card
-        card.EzSc.xChips = amt
-    else
-        sendErrorMessage('Context for xChips not supported, check the mod\'s Wiki','Easier-Scoring')
         return
     end
 end

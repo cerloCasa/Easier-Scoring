@@ -5,7 +5,7 @@
 --- MOD_DESCRIPTION: This is a template mod for testing the Easier Scoring Mod
 --- BADGE_COLOR: 4285F4
 --- PREFIX: ExJo
---- VERSION: snapshot24w28c
+--- VERSION: snapshot24w28d
 --- DEPENDENCIES: [EasierScoring]
 
 SMODS.Atlas { -- Example Joker

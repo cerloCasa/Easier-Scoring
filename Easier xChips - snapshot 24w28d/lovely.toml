@@ -1,0 +1,35 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+pattern = '[\t]*\-\-If mult added, do mult add event and add the mult to the total'
+position = 'at'
+payload = '''if effects[ii].xChips then
+                            if effects[ii].card then juice_card(effects[ii].card) end
+                            hand_chips = mod_chips(hand_chips * effects[ii].xChips)
+                            update_hand_text({delay = 0}, {chips = hand_chips})
+                            EzSc_card_eval_status_text(scoring_hand[i],'xChips',effects[ii].xChips)                         
+                        end
+
+                        --If mult added, do mult add event and add the mult to the total'''
+overwrite = true
+
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+pattern = 'card_eval_status_text\(G.hand.cards\[i], \Wchips\W, \w*.\w*.*'
+position = 'at'
+payload = '''card_eval_status_text(G.hand.cards[i], 'chips', effects[ii].aChips, percent)
+                        end
+
+                        if effects[ii].xChips then
+                            if effects[ii].card then juice_card(effects[ii].card) end
+                            hand_chips = mod_chips(hand_chips * effects[ii].xChips)
+                            update_hand_text({delay = 0}, {chips = hand_chips})
+                            EzSc_card_eval_status_text(G.hand.cards[i],'xChips',effects[ii].xChips)
+'''
+overwrite = true
