@@ -1,5 +1,5 @@
 ![img](https://raw.githubusercontent.com/cerloCasa/Easier-Scoring/main/assets/2x/modicon.png)
-# Easier Scoring: Snapshot 24w28c
+# Easier Scoring: Snapshot 24w28a
 This [mod](https://github.com/cerloCasa/Easier-Scoring/releases/tag/v1.1-EasierScoring) implements easy functions to put in your Jokers `calculate` functions, so you can focus on what your Joker does instead of thinking about what to put into the `return{}` brackets.
 ## Commands
 - `aChips(amt,card,context)` adds *amt* to the ![CHIPS](https://placehold.co/40x20/009dff/FFFFFF.png?text=Chips) amount;
@@ -34,18 +34,23 @@ function Card:calculate_joker(context)
 for k, v in pairs(SMODS.Stickers) do
     if self.ability[v.key] then
         if v.calculate and type(v.calculate) == 'function' then
--- EZSC START
             v:calculate(self, context)
         end
     end
 end
-if self.EzSc then
-    local RET EzSc_calculate_joker(self,context)
-    self.EzSc = nil
-    return RET
-end
--- EZSC END
     if self.debuff then return nil end
+    local obj = self.config.center
+    if obj.calculate and type(obj.calculate) == 'function' then
+        local o = obj:calculate(self, context)
+		-- START
+        if self.EzSc then
+            local RET = EzSc_calculate_joker(self,context)
+            self.EzSc = nil
+            return RET
+        end
+        -- END
+        if o then return o end
+    end
 ...
 ```
-also it modifies the behaviour of the `state_events.lua` file, to support `xChips()`.
+Also, it modifies the behaviour of the `state_events.lua` file, to support `xChips()` in `context.individual`.
