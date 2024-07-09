@@ -1,5 +1,5 @@
 ![img](https://raw.githubusercontent.com/cerloCasa/Easier-Scoring/main/assets/2x/modicon.png)
-# Easier Scoring: Snapshot 24w28b
+# Easier Scoring: Snapshot 24w28c
 This [mod](https://github.com/cerloCasa/Easier-Scoring/releases/tag/v1.1-EasierScoring) implements easy functions to put in your Jokers `calculate` functions, so you can focus on what your Joker does instead of thinking about what to put into the `return{}` brackets.
 ## Commands
 - `aChips(amt,card,context)` adds *amt* to the ![CHIPS](https://placehold.co/40x20/009dff/FFFFFF.png?text=Chips) amount;
@@ -28,23 +28,42 @@ This mod is fully compatible with all mods that don't implement these functions:
 - `xChips()`
 - `xMult()`
 
-This mod's file [`lovely.toml`](https://github.com/cerloCasa/Easier-Scoring/blob/bc762ed8680f1c1fbc0be8318eaaa0f9de09e81c/lovely.toml) modifies the behaviour of the `calculate_joker(context)` function in `card.lua`, this is the change:
+This mod's file [`lovely.toml`](https://github.com/cerloCasa/Easier-Scoring/blob/a438fc6fca46332f12e434eb60cef8f9ee19b4d0/lovely.toml) modifies the behaviour of the `calculate_joker(context)` function in `card.lua`, this is the change:
 ```lua
 function Card:calculate_joker(context)
 for k, v in pairs(SMODS.Stickers) do
     if self.ability[v.key] then
         if v.calculate and type(v.calculate) == 'function' then
--- EZSC START
             v:calculate(self, context)
         end
     end
 end
-if self.EzSc then
-    local RET EzSc_calculate_joker(self,context)
-    self.EzSc = nil
-    return RET
-end
--- EZSC END
     if self.debuff then return nil end
+    local obj = self.config.center
+    if obj.calculate and type(obj.calculate) == 'function' then
+        local o = obj:calculate(self, context)
+		-- START
+        if self.EzSc then
+            local RET = EzSc_calculate_joker(self,context)
+            self.EzSc = nil
+            return RET
+        end
+        -- END
+        if o then return o end
+    end
 ...
 ```
+Also, it modifies the behaviour of the `state_events.lua` file, to support `xChips()` in `context.individual`.
+## Testing
+Developing this mod, I found that many are the different contexts and commands I have to test and I unfortunately don't have the time right now to try them all. If you are reading this, please help me in testing these contexts:
+- `context.selling_card`: `addMoney`;
+- `context.reroll_shop`: `addMoney`;
+- `context.skip_blind`: `addMoney`;
+- `context.skipping_booster`: `addMoney`;
+- `context.setting_blind`: `addMoney`;
+- `context.using_consumeable`: `addMoney`;
+- `context.discard`: `addMoney`;
+- `context.end_of_round and not context.repetition`: `addMoney`;
+- `context.before`: `addMoney`.
+
+If a context isn't listed here, while being supported by the mod, then it has already been tested. Thank you for your support.
