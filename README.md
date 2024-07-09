@@ -1,5 +1,5 @@
-![img](https://raw.githubusercontent.com/cerloCasa/Easier-Scoring/main/assets/2x/modicon.png)
-# Easier Scoring: Snapshot 24w28c
+![img](https://github.com/cerloCasa/Easier-Scoring/blob/main/Easier%20Scoring%20-%20snapshot24w28d/assets/2x/modicon.png?raw=true)
+# Easier Scoring: Snapshot 24w28d
 This [mod](https://github.com/cerloCasa/Easier-Scoring/releases/tag/v1.1-EasierScoring) implements easy functions to put in your Jokers `calculate` functions, so you can focus on what your Joker does instead of thinking about what to put into the `return{}` brackets.
 ## Commands
 - `aChips(amt,card,context)` adds *amt* to the ![CHIPS](https://placehold.co/40x20/009dff/FFFFFF.png?text=Chips) amount;
@@ -20,6 +20,7 @@ if context.individual and context.cardarea == G.play then
   xChips(3,card,context) -- each scoring card does x3 Chips
 end
 ```
+**NOTE:** `xChips` is not available by default, you'll need to add the [Easier xChips](https://github.com/cerloCasa/Easier-Scoring/tree/f4d4834897162c13b573b231070f512dceb7cebc/Easier%20xChips%20-%20snapshot%2024w28d) mod too.
 ## Compatibility
 This mod is fully compatible with all mods that don't implement these functions:
 - `aChips()`
