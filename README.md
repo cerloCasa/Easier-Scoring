@@ -54,7 +54,7 @@ end
     end
 ...
 ```
-Also, it modifies the behaviour of the `state_events.lua` file, to support `xChips()` in `context.individual`.
+Also, *Easier xChips* modifies the behaviour of the `state_events.lua` file, to support `xChips()`.
 ## Testing
 Developing this mod, I found that many are the different contexts and commands I have to test and I unfortunately don't have the time right now to try them all. If you are reading this, please help me in testing these contexts:
 - `context.selling_card`: `addMoney`;
