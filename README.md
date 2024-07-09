@@ -29,7 +29,7 @@ This mod is fully compatible with all mods that don't implement these functions:
 - `xChips()`
 - `xMult()`
 
-This mod's file [`lovely.toml`](https://github.com/cerloCasa/Easier-Scoring/blob/a438fc6fca46332f12e434eb60cef8f9ee19b4d0/lovely.toml) modifies the behaviour of the `calculate_joker(context)` function in `card.lua`, this is the change:
+This mod's file [`lovely.toml`](https://github.com/cerloCasa/Easier-Scoring/blob/f4d4834897162c13b573b231070f512dceb7cebc/Easier%20Scoring%20-%20snapshot24w28d/lovely.toml) modifies the behaviour of the `calculate_joker(context)` function in `card.lua`, this is the change:
 ```lua
 function Card:calculate_joker(context)
 for k, v in pairs(SMODS.Stickers) do
