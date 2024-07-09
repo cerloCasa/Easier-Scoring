@@ -36,7 +36,6 @@ SMODS.Joker {
     calculate = function(self,card,context)
         if context.other_joker and self ~= context.other_joker then
             aChips(1,card,context)
-            xChips(2,card,context)
             aMult(3,card,context)
             xMult(4,card,context)
         end
