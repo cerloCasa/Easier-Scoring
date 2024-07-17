@@ -1,28 +1,32 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = 1  # This only works on Lovely 0.5.0-beta7
 
 [[patches]]
 [patches.regex]
 target = 'card.lua'
-pattern = 'local o \= obj\:calculate\(self, context\)'
-position = 'at'
-payload = '''local o = obj:calculate(self, context)
-        if self.EzSc then
-            local RET = EzSc_calculate_joker(self,context)
-            self.EzSc = nil
-            return RET
-        end
-'''
-overwrite = true
+pattern = '''function Card:calculate_joker[\s\S]*?
+(?<indent>)(local o = obj\:calculate\(self, context\))'''
+root_capture = '$2'
+position = 'after'
+payload = '''
+
+if self.EzSc then
+    local RET = EzSc_calculate_joker(self,context)
+    self.EzSc = nil
+    return RET
+end'''
+line_prepend = '$indent'
+
 
 [[patches]]
 [patches.regex]
 target = 'functions/state_events.lua'
-pattern = '\-\-If hold mult added, do hold mult add event and add the mult to the total'
-position = 'at'
-payload = '''--If hold mult added, do hold mult add event and add the mult to the total
+pattern = '--If hold mult added, do hold mult add event and add the mult to the total'
+position = 'after'
+payload = '''
+
                         if effects[ii].aChips then 
                             if effects[ii].card then juice_card(effects[ii].card) end
                             hand_chips = mod_chips(hand_chips + effects[ii].aChips)
@@ -42,6 +46,4 @@ payload = '''--If hold mult added, do hold mult add event and add the mult to th
                             mult = mod_mult(mult + effects[ii].xMult)
                             update_hand_text({delay = 0}, {mult = mult})
                             card_eval_status_text(G.hand.cards[i], 'mult', effects[ii].xMult, percent)
-                        end
-'''
-overwrite = true
+                        end'''
